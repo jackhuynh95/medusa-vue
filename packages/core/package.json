@@ -12,7 +12,7 @@
     "query",
     "@medusa"
   ],
-  "author": "Ulrich Krause <hello@raukaute.com",
+  "author": "Jack Huynh",
   "homepage": "",
   "directories": {
     "dist": "dist",
