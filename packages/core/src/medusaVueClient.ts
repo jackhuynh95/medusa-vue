@@ -1,8 +1,6 @@
 import { VueQueryPlugin, VueQueryPluginOptions } from '@tanstack/vue-query';
 import Medusa from '@medusajs/medusa-js';
-import { App } from 'vue';
-
-import { medusaKey } from './injectionSymbols';
+import Vue from "vue";
 
 interface MedusaVueClientProps {
   baseUrl: string;
@@ -22,7 +20,7 @@ interface MedusaVueClientProps {
 
 export const createMedusaVueClient = (options: MedusaVueClientProps) => {
   const medusaVueClient = {
-    install: (app: App) => {
+    install(app: typeof import('vue').default) {
       const medusa = new Medusa({
         baseUrl: options.baseUrl,
         apiKey: options.apiKey,
@@ -43,7 +41,8 @@ export const createMedusaVueClient = (options: MedusaVueClientProps) => {
         },
       };
 
-      app.provide(medusaKey, { client: medusa });
+      // Provide the Medusa client
+      Vue.prototype.$medusaClient = { client: medusa };
 
       app.use(
         VueQueryPlugin,
