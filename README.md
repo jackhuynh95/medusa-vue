@@ -1,6 +1,6 @@
-# Medusa Vue
+# Medusa Vue 2
 
-Vue 3 composables and components for seamless and streamlined interaction with a [Medusa](https://github.com/medusajs/medusa).
+Vue 2 composables and components for seamless and streamlined interaction with a [Medusa](https://github.com/medusajs/medusa).
 
 If you're building a custom vue based storefront that consumes a medusa backend and find yourself wishing you had something nice at hands like `medusa-react` to streamline your data management - this might be your library!
 
@@ -11,17 +11,9 @@ The library uses [@tanstack/vue-query](https://tanstack.com/query/v4/docs/vue/ov
 For the core composables run:
 
 ```bash
-npm install @medusa-vue/core
+npm install @jackhuynh1995/medusa-vue2-core
 # or
-yarn add @medusa-vue/core
-```
-
-For the components (WIP :construction_worker:):
-
-```bash
-npm install @medusa-vue/components
-# or
-yarn add @medusa-vue/components
+yarn add @jackhuynh1995/medusa-vue2-core
 ```
 
 ## Quick Start
@@ -64,6 +56,8 @@ const app = createApp(App);
 app.use(client).mount('#app');
 ```
 
+The hooks exposed by `medusa-vue` fall into two main categories: queries and mutations.
+
 ### Queries
 
 [Queries](https://tanstack.com/query/v4/docs/vue/guides/queries) simply wrap around vue-query's `useQuery` hook to fetch some data from your medusa server
@@ -71,6 +65,8 @@ app.use(client).mount('#app');
 ```vue
 // ./my-product-list.vue
 <script setup lang="ts">
+import { watch } from 'vue';
+import HelloWorld from './components/HelloWorld.vue';
 import { useProducts } from '@medusa-vue/core';
 
 const { data, error, isLoading } = useProducts();
@@ -83,7 +79,7 @@ const { data, error, isLoading } = useProducts();
 </template>
 ```
 
-**_Note_**: If you've worked with @medusajs/medusa-react you might be used to being able to destructure the recordset returned by the server directly, i.e. `const { products } = useProducts()`. This is however not possible with vue due to the way it's reactive system works.
+**_Note_**: If you've worked with @medusajs/medusa-react you might be used to being able to destructure the recordset returned by the server, i.e. `const { products } = useProducts()`. This is however not possible with vue due to the way it's reactive system works.
 
 ### Mutations
 
@@ -107,46 +103,6 @@ const handleClick = () => {
 ```
 
 The mutation hooks will return exactly what vue-query's [`useMutation`](https://tanstack.com/query/v4/docs/vue/guides/mutations) returns. In addition, the options you pass in to the hooks will be passed along to `useMutation`.
-
-### Components
-
-**_NOTE_**: This is still work in progress and new components will gradually be added!:construction_worker:
-
-If you prefer declarative templates, `@medusa-vue/components` provided (almost) renderless components to use directly in your template and provide data through `slot-props`. This allows for extremely streamlinend and declarative templating:
-
-```vue
-<script setup lang="ts">
-import { UseProducts } from '@medusa-vue/components';
-</script>
-
-<template>
-  <use-products v-slot="{ data, isLoading }">
-    <loading-spinner v-if="isLoading" />
-
-    <product-list :products="data.products" />
-  </use-products>
-</template>
-```
-
-The component also allows to pass down the laoding indicating component via a slot:
-
-```vue
-<script setup lang="ts">
-import { UseProducts } from '@medusa-vue/components';
-</script>
-
-<template>
-  <use-products>
-    <template #fallback>
-      <div>Loading....</div>
-    </template>
-
-    <template v-slot="{ data, isLoading }">
-      <product-list :products="data.products" />
-    </template>
-  </use-products>
-</template>
-```
 
 ### Utilities
 

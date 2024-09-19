@@ -1,5 +1,5 @@
 {
-  "name": "@medusa-vue2/core",
+  "name": "@jackhuynh1995/medusa-vue2-core",
   "version": "0.4.2",
   "license": "MIT",
   "main": "dist/index.js",

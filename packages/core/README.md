@@ -11,9 +11,9 @@ The library uses [@tanstack/vue-query](https://tanstack.com/query/v4/docs/vue/ov
 For the core composables run:
 
 ```bash
-npm install @medusa-vue2/core
+npm install @jackhuynh1995/medusa-vue2-core
 # or
-yarn add @medusa-vue2/core
+yarn add @jackhuynh1995/medusa-vue2-core
 ```
 
 ## Quick Start
